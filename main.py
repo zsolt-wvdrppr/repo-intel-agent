@@ -1,6 +1,5 @@
 import argparse
-from pathlib import Path
-from langchain.agents import create_agent
+from scan import scan_repositories
 
 print("--- START ---")
 
@@ -11,11 +10,9 @@ parser.add_argument("path", type=str, help="Path to the repository folder to ana
 args = parser.parse_args()
 
 print(f"Mode: {args.mode}")
-print(f"Directory to scan: {args.path}")
 
-path = Path(args.path)
-if not path.exists() or not path.is_dir():
-    print(f"Error: The provided path '{args.path}' does not exist or is not a directory.")
-    exit(1)
+if args.mode == "scan":
+    print(f"Scanning repositories in: {args.path}")
+    scan_repositories(args.path)
 
-print(f"Scanning directory: {list(path.iterdir())}")
+
