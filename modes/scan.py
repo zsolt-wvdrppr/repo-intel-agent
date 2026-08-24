@@ -1,5 +1,5 @@
 from pathlib import Path
-import subprocess
+from utils.get_langs import get_langs
 import json
 
 def scan_repositories(path):
@@ -29,22 +29,15 @@ def scan_repositories(path):
             }
 
         if item.is_dir():
-            print(f"Found directory: {item.name}")
             # Recursively scan subdirectories
             repo_content = list(item.iterdir())
 
             # Check if it contains .git directory to identify it as a repository
             if any(sub_item.name == '.git' for sub_item in repo_content):
-                print(f"Repository found: {item.name}")
                 repo_details["name"] = item.name
                 repo_details["path"] = str(item.resolve())
-                get_git_info(str(item.resolve()))
+                repo_langs = get_langs(str(item.resolve()))
+                repo_details["language"] = repo_langs["languages"]
+                repo_details["loc_total"] = repo_langs["loc_total"]
 
-def get_git_info(repo_path):
-    result = subprocess.run(
-        ["github-linguist", repo_path, "--json"],
-        capture_output=True,
-        text=True
-    )
-
-    print(f"Git info result: {result.stdout}")
+                print(f"Repository details: {json.dumps(repo_details, indent=4)}")

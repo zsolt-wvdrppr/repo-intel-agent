@@ -1,5 +1,5 @@
 import argparse
-from scan import scan_repositories
+from modes.scan import scan_repositories
 
 print("--- START ---")
 
