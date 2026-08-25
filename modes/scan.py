@@ -1,6 +1,7 @@
 from pathlib import Path
-from utils.get_langs import get_langs
+from utils.get_langs_and_lines import get_langs
 from utils.get_num_of_last_30_days_commits import get_num_of_last_30_days_commits
+from utils.get_top_authors import get_top_authors
 import json
 
 SKIP_DIR_PARTS = {
@@ -37,14 +38,16 @@ def scan_repositories(path):
         if item.is_dir() and item.name not in SKIP_DIR_PARTS:
             # Recursively scan subdirectories
             repo_content = list(item.iterdir())
+            repo_path = str(item.resolve())
 
             # Check if it contains .git directory to identify it as a repository
             if any(sub_item.name == '.git' for sub_item in repo_content):
                 repo_details["name"] = item.name
-                repo_details["path"] = str(item.resolve())
-                repo_langs = get_langs(str(item.resolve()))
+                repo_details["path"] = repo_path
+                repo_langs = get_langs(repo_path)
                 repo_details["language"] = repo_langs["languages"]
                 repo_details["loc_total"] = repo_langs["loc_total"]
-                repo_details["commits_last_30_days"] = get_num_of_last_30_days_commits(str(item.resolve()))
+                repo_details["commits_last_30_days"] = get_num_of_last_30_days_commits(repo_path)
+                repo_details["top_authors"] = get_top_authors(repo_path)
 
                 print(f"Repository details: {json.dumps(repo_details, indent=4)}")
