@@ -2,6 +2,7 @@ from pathlib import Path
 from utils.get_langs_and_lines import get_langs
 from utils.get_num_of_last_30_days_commits import get_num_of_last_30_days_commits
 from utils.get_top_authors import get_top_authors
+from utils.get_check_for_files import get_check_for_files
 import json
 
 SKIP_DIR_PARTS = {
@@ -49,5 +50,7 @@ def scan_repositories(path):
                 repo_details["loc_total"] = repo_langs["loc_total"]
                 repo_details["commits_last_30_days"] = get_num_of_last_30_days_commits(repo_path)
                 repo_details["top_authors"] = get_top_authors(repo_path)
+                check_files = get_check_for_files(repo_path)
+                repo_details.update(check_files)
 
                 print(f"Repository details: {json.dumps(repo_details, indent=4)}")
