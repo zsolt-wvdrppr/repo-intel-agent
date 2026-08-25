@@ -1,6 +1,12 @@
 from pathlib import Path
 from utils.get_langs import get_langs
+from utils.get_num_of_last_30_days_commits import get_num_of_last_30_days_commits
 import json
+
+SKIP_DIR_PARTS = {
+    "node_modules", "vendor", "dist", "build", ".venv", "venv",
+    "target", ".git", "__pycache__", "coverage", ".next", ".tox",
+}
 
 def scan_repositories(path):
     path = Path(path)
@@ -28,7 +34,7 @@ def scan_repositories(path):
             "has_dockerfile": False
             }
 
-        if item.is_dir():
+        if item.is_dir() and item.name not in SKIP_DIR_PARTS:
             # Recursively scan subdirectories
             repo_content = list(item.iterdir())
 
@@ -39,5 +45,6 @@ def scan_repositories(path):
                 repo_langs = get_langs(str(item.resolve()))
                 repo_details["language"] = repo_langs["languages"]
                 repo_details["loc_total"] = repo_langs["loc_total"]
+                repo_details["commits_last_30_days"] = get_num_of_last_30_days_commits(str(item.resolve()))
 
                 print(f"Repository details: {json.dumps(repo_details, indent=4)}")
