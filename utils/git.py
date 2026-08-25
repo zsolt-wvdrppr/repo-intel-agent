@@ -1,6 +1,5 @@
 import subprocess
 
-
 def git(repo_path, *args):
     # Run a git command against repo_path and return stdout (stripped).
     try:
