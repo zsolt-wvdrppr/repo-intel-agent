@@ -34,13 +34,15 @@ def has_ci(files):
             return True
     return False
 
-def has_tests(files):
-    for file in files:
-        if file in TEST_DIR_HINTS:
-            for test_file in TEST_FILE_HINTS:
-                if file.startswith(test_file):
-                    return True
+def has_tests(items):
+    for item in items:
+        if item in TEST_DIR_HINTS:
+            return True
+
+        for test_file_hint in TEST_FILE_HINTS:
+            if item.startswith(test_file_hint):
                 return True
+            
     return False
 
 def has_dockerfile(files):
