@@ -61,18 +61,19 @@ def get_check_for_files(repo_path):
         )
 
         if result.returncode != 0:
-            raise Exception(result.returncode, result.args)
+            raise Exception(result.returncode, result.stderr)
 
-        array_of_files = result.stdout.splitlines()
+        list_of_files = result.stdout.splitlines()
+
+        return {
+                "has_readme": has_readme(list_of_files),
+                "has_claude": has_claude(list_of_files),
+                "has_license": has_license(list_of_files),
+                "has_tests": has_tests(list_of_files),
+                "has_ci": has_ci(list_of_files),
+                "has_dockerfile": has_dockerfile(list_of_files),
+            }
         
     except Exception as e:
         print(f"\n\nError running ls command: {e}\n\n")
-   
-    return {
-        "has_readme": has_readme(array_of_files),
-        "has_claude": has_claude(array_of_files),
-        "has_license": has_license(array_of_files),
-        "has_tests": has_tests(array_of_files),
-        "has_ci": has_ci(array_of_files),
-        "has_dockerfile": has_dockerfile(array_of_files),
-    }
+        return
