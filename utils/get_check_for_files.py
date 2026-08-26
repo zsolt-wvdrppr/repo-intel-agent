@@ -1,44 +1,46 @@
 import subprocess
 
-README_NAMES = ["readme.md", "readme.rst", "readme.txt", "readme"]
-CLAUDE_NAMES = {"claude.md", ".claude"}
-LICENSE_NAMES = {"license", "license.md", "license.txt", "copying"}
-CI_PATHS = {
-    ".github/workflows", ".gitlab-ci.yml", ".circleci/config.yml",
-    "azure-pipelines.yml", "jenkinsfile", ".travis.yml",
-}
-TEST_DIR_HINTS = {"test", "tests", "spec", "specs", "__tests__"}
-TEST_FILE_HINTS = ("test_", "_test.", ".test.", ".spec.")
-DOCKERFILE_NAMES = {"dockerfile", "dockerfile.dev", "dockerfile.prod", ".dockerfile"}
+README_NAMES = ["README.md"]
+CLAUDE_NAMES = ["CLAUDE.md"]
+LICENSE_NAMES = ["LICENSE.md"]
+CI_PATHS = [
+    ".github/workflows"
+]
+TEST_DIR_HINTS = ["tests", "__tests__"]
+TEST_FILE_HINTS = ["_test"]
+DOCKERFILE_NAMES = ["Dockerfile"]
 
 def has_readme(files):
     for file in files:
-        if file.lower() in README_NAMES:
+        if file in README_NAMES:
             return True
     return False
 
 def has_claude(files):
     for file in files:
-        if file.lower() in CLAUDE_NAMES:
+        if file in CLAUDE_NAMES:
             return True
     return False
 
 def has_license(files):
     for file in files:
-        if file.lower() in LICENSE_NAMES:
+        if file in LICENSE_NAMES:
             return True
     return False
 
 def has_ci(files):
     for file in files:
-        if file.lower() in CI_PATHS:
+        if file in CI_PATHS:
             return True
     return False
 
 def has_tests(files):
     for file in files:
-        if file.lower() in TEST_DIR_HINTS or any(hint in file.lower() for hint in TEST_FILE_HINTS):
-            return True
+        if file in TEST_DIR_HINTS:
+            for test_file in TEST_FILE_HINTS:
+                if file.startswith(test_file):
+                    return True
+                return True
     return False
 
 def has_dockerfile(files):
