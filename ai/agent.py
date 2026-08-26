@@ -1,4 +1,5 @@
 from langchain.agents import create_agent
+from langchain.agents.middleware import SummarizationMiddleware, HumanInTheLoopMiddleware
 from ai.tools.fetch_repo_names import fetch_repo_names
 
 # SYSTEM_PROMPT = """You are a local github repo assistant.
@@ -15,10 +16,9 @@ agent = create_agent(
     system_prompt="Local git repository assistant",
 )
 
-result = agent.invoke(
-    {"messages": [{"role": "user", "content": "What repository names are there?"}]}
-)
-
-answer = result["messages"][-1].content_blocks[0]["text"]
-
-print(answer)
+def invoke_agent(prompt):
+    result = agent.invoke(
+        {"messages": [{"role": "user", "content": prompt}]}
+    )
+    answer = result["messages"][-1].content_blocks[0]["text"]
+    return answer
