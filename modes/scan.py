@@ -10,14 +10,23 @@ SKIP_DIR_PARTS = {
     "target", ".git", "__pycache__", "coverage", ".next", ".tox",
 }
 
+def create_output_dir():
+    path = Path("./json_outputs")
+
+    if not(path.is_dir()):
+        path.mkdir(parents=True, exist_ok=True)
+
 def scan_repositories(path):
+
+    create_output_dir()
+
     path = Path(path)
     if not path.exists() or not path.is_dir():
         print(f"Error: The provided path '{path}' does not exist or is not a directory.")
         exit(1)
 
     root_content = list(path.iterdir())
-    print(f"Scanning directory: {root_content}")
+    repo_count = 0
 
     for item in root_content:
 
@@ -53,4 +62,13 @@ def scan_repositories(path):
                 check_files = get_check_for_files(repo_path)
                 repo_details.update(check_files)
 
-                print(f"Repository details: {json.dumps(repo_details, indent=4)}")
+                with open(f"./json_outputs/{repo_details["name"]}.json", "w") as f:
+                    json.dump(repo_details, f, indent = 4)
+
+                repo_count += 1
+
+    repo_str = "repository"
+    if repo_count > 1:
+        repo_str = "repositories"
+
+    print(f"{repo_count} {repo_str} found.\n\n")
