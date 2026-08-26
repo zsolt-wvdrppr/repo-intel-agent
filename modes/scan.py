@@ -11,7 +11,7 @@ SKIP_DIR_PARTS = {
 }
 
 def create_output_dir():
-    path = Path("./json_outputs")
+    path = Path("./metadata")
 
     if not(path.is_dir()):
         path.mkdir(parents=True, exist_ok=True)
@@ -62,7 +62,7 @@ def scan_repositories(path):
                 check_files = get_check_for_files(repo_path)
                 repo_details.update(check_files)
 
-                with open(f"./json_outputs/{repo_details["name"]}.json", "w") as f:
+                with open(f"./metadata/{repo_details["name"]}.json", "w") as f:
                     json.dump(repo_details, f, indent = 4)
 
                 repo_count += 1

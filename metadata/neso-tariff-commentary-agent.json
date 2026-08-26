@@ -1,0 +1,40 @@
+{
+    "name": "neso-tariff-commentary-agent",
+    "path": "/Users/zsolt.bea/Documents/neso-tariff-commentary-agent",
+    "language": {
+        "JavaScript": 2407174,
+        "TypeScript": 179994,
+        "JSON": 159327,
+        "Markdown": 57962,
+        "Python": 16928,
+        "HCL": 1770,
+        "Text": 1358,
+        "Bourne Shell": 1139,
+        "CSS": 1013,
+        "YAML": 839,
+        "SVG": 470,
+        "HTML": 154,
+        "TOML": 139,
+        "PowerShell": 130,
+        "AppleScript": 61,
+        "make": 52,
+        "INI": 50,
+        "CSV": 44,
+        "Dockerfile": 30,
+        "Rego": 13,
+        "Bourne Again Shell": 8,
+        "SUM": 2828655
+    },
+    "loc_total": 5657310,
+    "commits_last_30_days": 44,
+    "top_authors": [
+        "pratikbalasahebdhanave",
+        "Pratik Dhanave"
+    ],
+    "has_readme": true,
+    "has_claude": true,
+    "has_license": false,
+    "has_tests": false,
+    "has_ci": false,
+    "has_dockerfile": false
+}

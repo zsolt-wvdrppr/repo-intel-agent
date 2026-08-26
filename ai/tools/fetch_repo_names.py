@@ -3,10 +3,16 @@ from pathlib import Path
 import subprocess
 
 @tool
-def fetch_repo_names():
-    """Get available repository or repo names."""
+def fetch_repo_names(path: str):
+    """Get available repository or repo names.
+    
+    Args:
+         path: Path to metadata. Must use the user provided path.
+    """
 
-    meta_files_path = Path("././json_outputs")
+    repo_root = Path(__file__).resolve().parent.parent.parent
+    meta_files_path = repo_root / path.lstrip("/")
+
 
     try:
         result = subprocess.run(
@@ -16,13 +22,13 @@ def fetch_repo_names():
         )
 
         if result.returncode !=0:
-            raise Exception(result.returncode, result.args)
+            raise Exception(result.returncode, result.stderr)
 
-        arr_of_files = result.stdout.splitlines()
+        list_of_files = result.stdout.splitlines()
 
         repo_names = []
 
-        for file_name_with_ext in arr_of_files:
+        for file_name_with_ext in list_of_files:
             file_name = file_name_with_ext.split(".")[0]
             repo_names.append(file_name)
 
