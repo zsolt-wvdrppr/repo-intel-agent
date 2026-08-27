@@ -34,7 +34,7 @@ def get_combined_meta(path: str, keys: list, repos : list = []):
       
                 for entry in data:
                     if entry in keys:
-                        # {repo_name: entry_name: value(s)}
+                        # {repo_name: {entry_name: value(s)}}
                         output.update({data["name"]: {entry: data[entry]}})
 
         return output

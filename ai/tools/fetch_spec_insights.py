@@ -22,7 +22,7 @@ def fetch_spec_insights(path: str, keys: list, repos: list = []):
             - has_ci: The value is "true" if it has CI/CD or False if doesn't,
             - has_dockerfile: The value is "true" if it has a Dockerfile or False if it does not.
 
-        repos: A list of the specified repos to look into. By default if this arg is not defined it looks into all repos. If repo name is specified by user, must validate correct names using the fetch_repo_names tool. If there's a typo in the user prompt, can correct it based on available repos, and must make a note of it in your response!
+        repos: A list of the specified repos to look into. By default if this arg is not defined it looks into all repos. If repo name is specified by user, must validate correct names using the fetch_repo_names tool. If there's a typo in the user prompt, DO correct it based on available repos, and MUST make a note of it in your response!
     """
 
     return get_combined_meta(path, keys, repos)
