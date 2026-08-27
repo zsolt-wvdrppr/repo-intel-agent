@@ -18,4 +18,4 @@ install-cloc:
 		fi)
 
 scan-docs: venv/bin/activate
-	./.venv/bin/python main.py scan /Users/zsolt.bea/Documents
+	./.venv/bin/python main.py scan /Users/zsolt.bea/Repos
