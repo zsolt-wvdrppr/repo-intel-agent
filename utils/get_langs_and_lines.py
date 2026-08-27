@@ -1,6 +1,5 @@
 import subprocess
 import json
-from unittest import result
 
 def get_langs(repo_path):
     result = subprocess.run(
