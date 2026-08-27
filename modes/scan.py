@@ -16,11 +16,13 @@ def create_output_dir():
     if not(path.is_dir()):
         path.mkdir(parents=True, exist_ok=True)
 
-def scan_repositories(path):
-
+def scan_repositories(parent_path: str):
+    print("SCANNING")
     create_output_dir()
 
-    path = Path(path)
+    repo_root = Path(__file__).resolve().parent.parent
+    print("REPO ROOT", repo_root)
+    path = repo_root / parent_path
     if not path.exists() or not path.is_dir():
         print(f"Error: The provided path '{path}' does not exist or is not a directory.")
         exit(1)
@@ -72,3 +74,5 @@ def scan_repositories(path):
         repo_str = "repositories"
 
     print(f"{repo_count} {repo_str} found.\n\n")
+
+    return {"status": "Metadata generation is completed."}

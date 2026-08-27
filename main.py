@@ -13,7 +13,7 @@ print(f"\n*** Mode selected: {args.mode} ***")
 
 if args.mode == "scan":
     print(f"\nScanning for repositories in: {args.path}\n")
-    scan_repositories(args.path)
+    scan_repositories(parent_path=args.path)
 
 if args.mode == "ask":
     print(f"\n\n{ask(args)}\n\n")
