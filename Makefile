@@ -17,5 +17,5 @@ install-cloc:
 			sudo apt-get update && sudo apt-get install -y cloc; \
 		fi)
 
-scan-docs: venv/bin/activate
+scan-repos: venv/bin/activate
 	./.venv/bin/python main.py scan /Users/zsolt.bea/Repos
