@@ -1,4 +1,4 @@
-.PHONY: install install-cloc scan scan-docs ask
+.PHONY: install install-cloc scan scan-repos ask
 
 # Create/update venv only when requirements.txt changes
 venv/bin/activate: requirements.txt
