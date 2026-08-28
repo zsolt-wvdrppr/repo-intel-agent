@@ -48,11 +48,9 @@ def scan_repositories(parent_path: str):
             }
 
         if item.is_dir() and item.name not in SKIP_DIR_PARTS:
-            # Recursively scan subdirectories
             repo_content = list(item.iterdir())
             repo_path = str(item.resolve())
 
-            # Check if it contains .git directory to identify it as a repository
             if any(sub_item.name == '.git' for sub_item in repo_content):
                 repo_details["name"] = item.name
                 repo_details["path"] = repo_path
